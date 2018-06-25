@@ -7,10 +7,10 @@ Example code for using Terraform to deploy GKE with sample Kubernetes deployment
 4. Using [this tutorial][3] you can see how to quickly get your containers into Google Container Registry (GCR), which can act as a private repo for your containers. This sample code should give an example of two very simple services.
    * `docker build -t endpoint1 deployments/endpoint1`
    * `docker build -t endpoint2 deployments/endpoint2`
-   * `docker tag endpoint1 gcr.io/&lt;PROJECT&gt;/endpoint1:v1`
-   * `docker tag endpoint2 gcr.io/&lt;PROJECT&gt;/endpoint2:v1`
-   * `docker push gcr.io/&lt;PROJECT&gt;/endpoint1:v1`
-   * `docker push gcr.io/&lt;PROJECT&gt;/endpoint2:v1`
+   * `docker tag endpoint1 gcr.io/<PROJECT>/endpoint1:v1`
+   * `docker tag endpoint2 gcr.io/<PROJECT>/endpoint2:v1`
+   * `docker push gcr.io/<PROJECT>/endpoint1:v1`
+   * `docker push gcr.io/<PROJECT>/endpoint2:v1`
 5. Once the containers have been pushed to GCR, update the code in the sample deployment folders to point to the new gcr.io links in both deployment.yaml files on line 20.
 6. Similar to the instructions in [this tutorial][4], deploy the two services to Kubernetes and then apply the load balancer.
    * `kubectl apply -f endpoint1/deployment.yaml`
