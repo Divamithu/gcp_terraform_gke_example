@@ -2,7 +2,7 @@
 resource "google_container_cluster" "prod-main" {
   name               = "prod-main"
   zone               = "us-central1-a"
-  min_master_version = "1.10.4-gke.0"
+  min_master_version = "1.10.5-gke.0"
 
   master_auth {
     username = "nouser"
