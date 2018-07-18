@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: endpoint2
-        image: gcr.io/<PROJECT>/<IMAGE>
+        image: gcr.io/<PROJECT>/endpoint2:v1
         ports:
         - containerPort: 8080
 ---
