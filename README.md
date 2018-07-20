@@ -1,10 +1,13 @@
 # gcp_terraform_gke_example
 Example code for using Terraform to deploy GKE with sample Kubernetes deployments
 
+1. If this is a new GCP project, make sure to enable the [Google Kubernetes Engine API][5]
 1. Set up Terraform to deploy GKE. First you’ll need to [install Terraform][1] as well as set up the [gcloud SDK][2] on the machine you’ll run these on, or you can run these from your Cloud console.
-1. You’ll need to edit the terraform/provider.tf file to update the bucket on line 10 to a GCS bucket your GCP user has access to. Simply create the bucket and enter the name in provider.tf. This is a simple locking mechanism to make sure multiple people aren’t running the Terraform job at the same time.
+1. You’ll need to edit the terraform/provider.tf file to update the bucket on line 10 to a GCS bucket your GCP user has access to. Simply create a [new GCS bucket][6] and enter the name in provider.tf. This is a simple locking mechanism to make sure multiple people aren’t running the Terraform job at the same time.
    * `terraform/provider.tf`
-1. You can see in terraform/setup.tf that it declares the GKE cluster as well as some properties about the deployments. This will include which zones you’ll be using, the size of the machines, and the autoscaling properties.
+1. You can see in terraform/setup.tf that it declares the GKE cluster as well as some properties about the deployments. This will include which zones you’ll be using, the size of the machines, and the autoscaling properties. To run terraform, go to the terraform directory and run:
+   * `terraform init`
+   * `terraform apply`
 1. Using [this tutorial][3] you can see how to quickly get your containers into Google Container Registry (GCR), which can act as a private repo for your containers. This sample code should give an example of two very simple services.
    * `gcloud auth configure-docker` (you may need to authorize docker)
    * `export PROJECT="<PROJECT>"` (replace <PROJECT> with your project id name)
@@ -28,3 +31,5 @@ Example code for using Terraform to deploy GKE with sample Kubernetes deployment
 [2]: https://cloud.google.com/sdk/install
 [3]: https://cloud.google.com/container-registry/docs/quickstart
 [4]: https://cloud.google.com/kubernetes-engine/docs/tutorials/http-balancer
+[5]: https://support.google.com/cloud/answer/6158841?hl=en
+[6]: https://cloud.google.com/storage/docs/creating-buckets
