@@ -1,7 +1,9 @@
 # gcp_terraform_gke_example
 Example code for using Terraform to deploy GKE with sample Kubernetes deployments
 
-## Initial Setup
+## Deploy a GKE Cluster
+
+### Initial Setup
 
 1. If this is a new GCP project, make sure to enable the [Google Kubernetes Engine API][5]
 1. Create a Service Account with the following permissions:
@@ -11,34 +13,31 @@ Example code for using Terraform to deploy GKE with sample Kubernetes deployment
 	* Storage Object Admin
 1. Select option to create private JSON key for Service Account (it will be download onto your device)
 1. Create a [new GCS bucket][6]
-1. Create a GCE instance and set the Service Account as the service account you created previously. Once the instance has started, connect to it through SSH
+1. Create a Debian GCE instance and set the Service Account as the service account you created previously. Once the instance has started, connect to it through SSH
 
-## Inside the GCE Instance Shell
+### Inside the GCE Instance Shell
 
 1. [Install Terraform][1]
-1. Once you have verified the install, clone this repo into the VM
-1. Upload your private key to the **terraform/** directory 
+1. Once you have verified the install, clone this repo into the VM and `cd` into it
+1. Upload the Service Account private key we created earlier to the **terraform/** directory
 	* details on how to [transfer a file to an instance][7]
 1. You’ll need make the following edits to **terraform/provider.tf**:
 	* Add your project id to line 1 -- it should like something like:
  	
- 	`variable "project" { default = "<YOUR-PROJECT-ID>"}`
+ 		`variable "project" { default = "<YOUR-PROJECT-ID>"}`
 	* Reference your private key file: (in this example it's called **credentials.json**)
 		
-	```
-	provider "google" {
-  		credentials = "${file("credentials.json")}"
-  		project     = "${var.project}"
-  		region      = "us-central1"
-	}
-	```
+		```
+		provider "google" {
+	  		credentials = "${file("credentials.json")}"
+	  		project     = "${var.project}"
+	  		region      = "us-central1"
+		}
+		```
 	* Update the bucket name to the name of the GCS bucket we created earlier (your Service Account should have access to this bucket through the Storage Object Admin role). This enables a simple locking mechanism to make sure multiple people aren’t running the Terraform job at the same time.
 	
-	`bucket  = "<SHARED_BUCKET_NAME>"`
-
-### Deploy GKE Cluster
-
-1. You can see in terraform/setup.tf that it declares the GKE cluster as well as some properties about the deployments. This will include which zones you’ll be using, the size of the machines, and the autoscaling properties. To run terraform, go to the terraform directory and run:
+		`bucket  = "<SHARED_BUCKET_NAME>"`
+1. You can see in **terraform/setup.tf** that it declares the GKE cluster as well as some properties about the deployments. This will include which zones you’ll be using, the size of the machines, and the autoscaling properties. To run terraform, go to the terraform directory and run:
    * `sudo terraform init`
    * `sudo terraform apply`
 
