@@ -13,9 +13,9 @@ Example code for using Terraform to deploy GKE with sample Kubernetes deployment
 1. Create a [new GCS bucket][6]
 1. Create a GCE instance and set the Service Account as the service account you created previously. Once the instance has started, connect to it through SSH
 
-## Inside the Instance Shell
+## Inside the GCE Instance Shell
 
-1. [install Terraform][1]
+1. [Install Terraform][1]
 1. Once you have verified the install, clone this repo into the VM
 1. Upload your private key to the **terraform/** directory 
 	* details on how to [transfer a file to an instance][7]
